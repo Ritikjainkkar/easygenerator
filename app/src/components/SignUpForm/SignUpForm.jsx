@@ -10,6 +10,11 @@ function SignUpForm({toggle}) {
     
     const onSubmit = async (e) => {
         e.preventDefault();
+        setError('')
+        if(!name || !email || !password) {
+            setError('Add All Fields')
+            return;
+        }
         try {
             const response = await axios.post('http://localhost:3000/auth/signup', {
                 name,
@@ -18,7 +23,6 @@ function SignUpForm({toggle}) {
             });
             toggle()
         } catch (err) {
-            console.log()
             setError(err.response.data.message)
         }
     }
